@@ -7,8 +7,7 @@ class Solution {
         int answer = 0;
         list = new ArrayList<>();
         dfs("", 0);
-        int size = list.size();
-        for (int i = 0; i < size; i++) {
+        for (int i = 0; i < list.size(); i++) {
             if (list.get(i).equals(word)) {
                 answer = i;
                 break;
