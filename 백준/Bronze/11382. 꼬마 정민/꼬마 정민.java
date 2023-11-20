@@ -9,7 +9,7 @@ public class Main {
 
         BufferedReader br=new BufferedReader(new InputStreamReader(System.in));
 
-        StringTokenizer st = new StringTokenizer(br.readLine()," ");
+        StringTokenizer st = new StringTokenizer(br.readLine());
         long sum = 0;
         while (st.hasMoreTokens()){
             sum += Long.parseLong(st.nextToken());
