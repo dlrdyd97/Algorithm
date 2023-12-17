@@ -3,7 +3,7 @@ class Solution {
         double answer = 1;
 
 		for (double i = balls; i > balls - share; i--) {
-			Math.round(answer *= i);
+			answer *= i;
 		}
 
 		for (double i = 1; i <= share; i++) {
