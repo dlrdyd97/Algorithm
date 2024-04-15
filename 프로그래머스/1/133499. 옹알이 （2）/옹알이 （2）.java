@@ -6,10 +6,12 @@ class Solution {
         int answer = 0;
         
         for (int i = 0; i < babbling.length; i++) {
-			if (babbling[i].contains("ayaaya") || babbling[i].contains("yeye") || babbling[i].contains("woowoo")
-					|| babbling[i].contains("mama")) {
-				continue;
-			}
+            if (babbling[i].contains(pronunciation[0] + pronunciation[0]) ||
+                    babbling[i].contains(pronunciation[1] + pronunciation[1]) ||
+                    babbling[i].contains(pronunciation[2] + pronunciation[2]) ||
+                    babbling[i].contains(pronunciation[3] + pronunciation[3])) {
+                continue;
+            }
 
 			babbling[i] = babbling[i].replace("aya", " ");
 			babbling[i] = babbling[i].replace("ye", " ");
