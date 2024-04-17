@@ -1,35 +1,50 @@
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
 
 class Solution {
     public int solution(int n, int[] lost, int[] reserve) {
-        
         int answer = 0;
-        int[] arr = new int[n + 2];
-        HashSet<Integer> hs = new HashSet<>();
-        for (int num : lost) {
-            hs.add(num);
-        }
-        for (int num : reserve) {
-            hs.add(num);
-        }
-        answer = n + reserve.length - hs.size();
+        ArrayList<Integer> ls = new ArrayList<>(); // 잃어버린 학생
+        ArrayList<Integer> rs = new ArrayList<>(); // 여벌이 있는 학생
+
+        Arrays.sort(lost);
+        Arrays.sort(reserve);
 
         for (int i = 0; i < lost.length; i++) {
-            arr[lost[i]]--;
+            ls.add(lost[i]);
         }
+
         for (int i = 0; i < reserve.length; i++) {
-            arr[reserve[i]]++;
+            rs.add(reserve[i]);
         }
-        for (int i = 1; i <= n; i++) {
-            if (arr[i] == -1) {
-                if (arr[i - 1] == 1) {
-                    answer++;
-                } else if (arr[i + 1] == 1) {
-                    answer++;
-                    arr[i + 1] = 0;
+
+        for (int i = 0; i < ls.size(); i++) { // 여벌 체육복을 가져온 학생이 체육복을 도난당했을경우
+            for (int j = 0; j < rs.size(); j++) {
+                if (ls.get(i) == rs.get(j)) { // ls,rs에서 모두 제거
+                    ls.remove(i);
+                    rs.remove(j);
+                    i--;
+                    break;
                 }
             }
         }
+        for (int i = 0; i < ls.size(); i++) { // 잃어버린 학생이 빌릴 수 있는지 확인
+            int front = rs.indexOf(ls.get(i) - 1); // 잃어버린 학생의 앞 번호
+            if (front != -1) { // 앞 번호 학생에게 빌릴 수 있으면
+                ls.remove(i);
+                rs.remove(front);
+                i--;
+                continue;
+            }
+            int back = rs.indexOf(ls.get(i) + 1); // 잃어버린 학생의 뒷 번호
+            if (back != -1) { // 뒷 번호 학생만 존재하면
+                ls.remove(i);
+                rs.remove(back);
+                i--;
+            }
+        }
+
+        answer = n - ls.size();
         return answer;
     }
 }
