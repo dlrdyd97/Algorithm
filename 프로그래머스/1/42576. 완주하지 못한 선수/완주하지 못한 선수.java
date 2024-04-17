@@ -1,21 +1,21 @@
-import java.util.HashMap;
+import java.util.*;
 
 class Solution {
     public String solution(String[] participant, String[] completion) {
         String answer = "";
-        
-        HashMap<String,Integer> fdzz=new HashMap<>();
-        for(String p:participant)
-            fdzz.put(p,fdzz.getOrDefault(p,0)+1);
-        for(String c:completion)
-            fdzz.put(c,fdzz.get(c)-1);
-        for(String fd:fdzz.keySet()){
-            if(fdzz.get(fd)==1){
-                answer=fd;
+        HashMap<String, Integer> hm = new HashMap<>();
+        for (String s : participant) {
+            hm.put(s, hm.getOrDefault(s, 0) + 1);
+        }
+        for (String s : completion) {
+            hm.put(s, hm.get(s) - 1);
+        }
+        for (String s : hm.keySet()) {
+            if (hm.get(s) == 1) {
+                answer = s;
                 break;
             }
         }
-        
         return answer;
     }
 }
