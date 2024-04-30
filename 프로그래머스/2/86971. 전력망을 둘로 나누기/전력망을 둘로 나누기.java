@@ -37,7 +37,7 @@ class Solution {
             int check = queue.poll();
 
             for (int i = 1; i <= n; i++) {
-                if (graph[check][i] == 1 && !visited[i]) {
+                if (!visited[i] && graph[check][i] == 1) {
                     visited[i] = true;
                     queue.offer(i);
                     cnt++;
