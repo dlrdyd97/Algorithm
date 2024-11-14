@@ -1,7 +1,7 @@
 import java.util.ArrayList;
 
 class Solution {
-    public int[] solution(String[] name, int[] yearning, String[][] photo) { 
+    public int[] solution(String[] name, int[] yearning, String[][] photo) {
         int[] answer = new int[photo.length];
 
 		for (int i = 0; i < photo.length; i++) {
