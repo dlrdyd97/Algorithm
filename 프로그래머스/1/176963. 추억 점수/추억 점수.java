@@ -1,19 +1,21 @@
-import java.util.ArrayList;
+import java.util.HashMap;
 
 class Solution {
-    public int[] solution(String[] name, int[] yearning, String[][] photo) {
+    public int[] solution(String[] name, int[] yearning, String[][] photo) { 
         int[] answer = new int[photo.length];
 
+		HashMap<String, Integer> hm = new HashMap<>();
+		for (int i = 0; i < name.length; i++) {
+			hm.put(name[i], yearning[i]);
+		}
+
 		for (int i = 0; i < photo.length; i++) {
-			ArrayList<String> fdzz = new ArrayList<>();
+			int sum = 0;
 			for (int j = 0; j < photo[i].length; j++) {
-				fdzz.add(photo[i][j]);
+				if (hm.containsKey(photo[i][j]))
+					sum += hm.get(photo[i][j]);
 			}
-			for (int j = 0; j < name.length; j++) {
-				if (fdzz.contains(name[j])) {
-					answer[i] += yearning[j];
-				}
-			}
+			answer[i] = sum;
 		}
         return answer;
     }
