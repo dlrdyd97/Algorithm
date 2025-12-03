@@ -2,61 +2,35 @@ class Solution {
     public int solution(int n, int w, int num) {
         int answer = 0;
         
-        int a = 0; // w 상자의 층수
-        int a_position = 0; // w상자의 위치
-        int b = 0; //
-        int b_position = 0; // 꼭대기층의 위치
+        int top = (int) (Math.ceil((double) n / w)); // 최고층의 층수
 
-        if (num % w == 0) {
-            a = num / w;
-        } else {
-            a = num / w + 1;
-        }
+        int target = (int) (Math.ceil((double) num / w)); // 꺼내려는 상자의 층수
+        answer = top - target + 1;
 
-        if (n % w == 0) {
-            b = n / w;
-        } else {
-            b = n / w + 1;
-        }
+        if (n % w == 0) { // 박스가 직사각형이면
 
-        if (a % 2 == 0) { // 짝수층이면
-            if (num % w == 0) {
-                a_position = 0;
-            }else {
-                a_position = w - (num % w);
-            }
-        } else { // 홀수층이면
-            if (num % w == 0) {
-                a_position = w - 1;
-            } else {
-                a_position = num % w - 1;
-            }
-        }
+        }else {
+            if (top % 2 == 0) { // 최고층이 짝수층
+                if (target % 2 == 0) { // 타켓 상자가 짝수층
+                    if (n % w < num % w) { // 최고층 상자를 무시하는 경우
+                        answer--;
+                    }
+                } else { // 타겟 상자가 홀수층
+                    if (num % w < w - (n % w) + 1 && num % w != 0) {
+                        answer--;
+                    }
+                }
 
-        if (b % 2 == 0) { // 짝수층이면
-            if (n % w == 0) {
-                b_position = 0;
-            } else {
-                b_position = w - (n % w);
-            }
-
-            if(b_position<=a_position){
-                answer = b - a + 1;
-            }else {
-                answer = b - a;
-            }
-
-        } else { // 홀수 층이면
-            if (n % w == 0) {
-                b_position = w - 1;
-            }else {
-                b_position = n % w - 1;
-            }
-
-            if (b_position >= a_position) {
-                answer = b - a + 1;
-            } else {
-                answer = b - a;
+            } else { // 최고층이 홀수층
+                if (target % 2 == 0) { // 타켓 상자가 짝수층
+                    if ((w - (num % w) + 1) > n % w && num % w != 0) {
+                        answer--;
+                    }
+                }else { // 타켓 상자가 홀수층
+                    if (n % w < num % w || num % w == 0) {
+                        answer--;
+                    }
+                }
             }
         }
         return answer;
