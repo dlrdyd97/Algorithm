@@ -1,35 +1,20 @@
-import java.util.ArrayList;
-import java.util.Collections;
-
 class Solution {
     public int[] solution(String[] wallpaper) {
-        ArrayList<Integer> fdzz = new ArrayList<>();
-
-		int[] answer = new int[4];
-		for (int i = 0; i < 4; i++) {
-			answer[i]--;
-		}
+		int minX = Integer.MAX_VALUE;
+		int minY = Integer.MAX_VALUE;
+		int maxX = Integer.MIN_VALUE;
+		int maxY = Integer.MIN_VALUE;
 
 		for (int i = 0; i < wallpaper.length; i++) {
-			if (wallpaper[i].contains("#")) {
-				fdzz.add(wallpaper[i].indexOf("#"));
-				fdzz.add(wallpaper[i].lastIndexOf("#"));
-				if (answer[0] == -1) { // 높이
-					for (int j = wallpaper.length - 1; j >= i; j--) {
-						if (wallpaper[j].contains("#")) {
-							answer[0] = i;
-							answer[2] = j + 1;
-							break;
-						}
-					}
+			for (int j = 0; j < wallpaper[i].length(); j++) {
+				if (wallpaper[i].charAt(j) == '#') {
+					minX = Math.min(minX, i);
+					minY = Math.min(minY, j);
+					maxX = Math.max(maxX, i);
+					maxY = Math.max(maxY, j);
 				}
-
 			}
 		}
-
-		Collections.sort(fdzz);
-		answer[1] = fdzz.get(0);
-		answer[3] = fdzz.get(fdzz.size() - 1) + 1;
-        return answer;
+        return new int[]{minX,minY,maxX+1,maxY+1};
     }
 }
